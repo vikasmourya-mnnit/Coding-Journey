@@ -1,0 +1,38 @@
+class Solution{
+public:
+    vector<int> topoSort(int V, vector<int> adj[]){
+        vector<int> indegree(V, 0);
+        vector<int> res;
+
+            for(auto &v : adj){
+    for(int i = 0; i < v.size(); i++){
+        indegree[v[i]]++;
+    }
+}
+
+        queue<int> q;
+
+        for(int i = 0; i < V; i++){
+            if(indegree[i] == 0){
+                q.push(i);
+            }
+        }
+
+        while(!q.empty()){
+            int u = q.front();
+            q.pop();
+
+            res.push_back(u);
+
+            for(auto v : adj[u]){
+                indegree[v]--;
+
+                if(indegree[v] == 0){
+                    q.push(v);
+                }
+            }
+        }
+
+        return res;
+    }
+};
